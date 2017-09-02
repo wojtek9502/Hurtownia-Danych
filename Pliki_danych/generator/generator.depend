@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1504366832 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki danych\generator\main.cpp
+	<iostream>
+	"generate_lib.h"
+	<fstream>
+	<sstream>
+
+1504366642 c:\users\wojciech\documents\github\hurtownia-danych\pliki danych\generator\generate_lib.h
+	<cstdlib>
+	<sstream>
+	<climits>
+	<ctime>
+
+1504367330 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\main.cpp
+	<iostream>
+	"generate_lib.h"
+	<fstream>
+	<sstream>
+
+1504366642 c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\generate_lib.h
+	<cstdlib>
+	<sstream>
+	<climits>
+	<ctime>
+

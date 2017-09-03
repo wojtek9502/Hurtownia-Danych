@@ -11,7 +11,7 @@
 	<climits>
 	<ctime>
 
-1504439396 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\main.cpp
+1504454338 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\main.cpp
 	<iostream>
 	"generate_lib.h"
 	<fstream>

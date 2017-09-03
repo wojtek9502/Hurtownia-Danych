@@ -19,7 +19,7 @@ void generuj_dentystow(int p_ile_dent, int p_ile_zw_dent)
            fplik << i+1 << ",";
            fplik << generate_name("ek","ski","ka","ska") << ",";
            fplik << generate_address("ska") << ",";
-           fplik << generate_phone_number();
+           fplik << generate_phone_number() << ",";
            fplik << generate_title() << ",";
            fplik << ( (rand()%3)+2 ) * 1000 << ","; ///pensja
            fplik << generate_hours() << ",";

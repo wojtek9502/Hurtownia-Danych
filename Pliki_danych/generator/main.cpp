@@ -19,6 +19,7 @@ void generuj_dentystow(int p_ile_dent, int p_ile_zw_dent)
            fplik << i+1 << ",";
            fplik << generate_name("ek","ski","ka","ska") << ",";
            fplik << generate_address("ska") << ",";
+           fplik << generate_phone_number();
            fplik << generate_title() << ",";
            fplik << ( (rand()%3)+2 ) * 1000 << ","; ///pensja
            fplik << generate_hours() << ",";
@@ -148,6 +149,124 @@ void generuj_ubezpieczenia(int p_ile_ubezpieczen)
     }
 }
 
+
+void generuj_pacjentow(int p_ile_pacjentow)
+{
+    string sciezka = "..\\pacjent.csv";
+    fstream fplik;
+    fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
+
+
+    if(fplik.good()==true)
+    {
+       for(int i=0; i<p_ile_pacjentow; i++)
+       {
+          fplik << i+1 << ",";
+          fplik << i+1 << ",";
+          fplik << generate_name("ek","ski","ka","ska") << ",";
+          fplik << generate_date(1939,2010) << ",";
+          fplik << generate_pesel()  << ",";
+          fplik << generate_address("ska") << ",";
+          fplik << generate_phone_number();
+          fplik << endl;            ///koniec rekordu
+       }
+       cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
+       fplik.close();
+    }
+    else
+    {
+       ///gdyby nie bylo pliku to utworzy
+       ofstream utworz_plik;
+       utworz_plik.open(sciezka.c_str());
+       utworz_plik.close();
+       cout << "Nie ma pliku lub jest otwarty w innym programie";
+    }
+}
+
+int generuj_lata(int rok, int ile_lat)
+{
+    string sciezka = "..\\rok.csv";
+    fstream fplik;
+    fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
+    if(fplik.good()==true)
+    {
+       for(unsigned int i=0; i<ile_lat; i++)
+       {
+           fplik << i+1 << ",";
+           fplik << rok;
+
+           fplik << endl; ///koniec rekordu
+           rok++;
+       }
+       cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
+       fplik.close();
+    }
+    return ile_lat;
+}
+
+int generuj_miesiace(int ile_lat)
+{
+    string sciezka = "..\\miesiac.csv";
+    fstream fplik;
+    int id_roku=1;
+    int nr_miesiaca=1;
+    fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
+    if(fplik.good()==true)
+    {
+       for(unsigned int i=0; i<ile_lat*12; i++)
+       {
+           fplik << i+1 << ",";
+
+           if(nr_miesiaca>12)
+           {
+              nr_miesiaca=1;
+              id_roku++;
+           }
+
+           fplik << id_roku << ",";
+           fplik << nr_miesiaca;
+           nr_miesiaca++;
+
+           fplik << endl; ///koniec rekordu
+       }
+       cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
+       fplik.close();
+    }
+    return ile_lat*12;
+}
+
+
+unsigned int generuj_dni(int ile_miesiecy)
+{
+    string sciezka = "..\\dzien.csv";
+    fstream fplik;
+    int id_miesiaca=1;
+    int nr_dnia=1;
+    fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
+    if(fplik.good()==true)
+    {
+       for(unsigned int i=0; i<ile_miesiecy*28; i++)
+       {
+           fplik << i+1 << ",";
+
+           if(nr_dnia>28)
+           {
+              nr_dnia=1;
+              id_miesiaca++;
+           }
+
+           fplik << id_miesiaca << ",";
+           fplik << nr_dnia;
+           nr_dnia++;
+
+           fplik << endl; ///koniec rekordu
+       }
+       cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
+       fplik.close();
+    }
+    return ile_miesiecy*28;
+}
+
 int main()
 {
     int l_dent = 30;
@@ -155,6 +274,7 @@ int main()
     int l_przychodni = 10;
     int l_gabinetow = 0;
     int l_ubezpieczen = 1000; ///tyle ile pacjentow
+    int l_pacjentow = l_ubezpieczen;
 
     srand(time(NULL));
     generuj_dentystow(l_dent,l_dent_zw);
@@ -162,5 +282,6 @@ int main()
     l_gabinetow = generuj_gabinety(l_przychodni);
     ///cout << endl << l_gabinetow;
     generuj_ubezpieczenia(l_ubezpieczen);
+    generuj_pacjentow(l_pacjentow);
     return 0;
 }

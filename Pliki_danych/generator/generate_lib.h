@@ -167,18 +167,6 @@ string generate_name(string male_surname_end, string male_name_end, string femal
     return streamData.str();
 }
 
-string generate_salon_name(string name_end)
-{
-    char letter = 0;
-    stringstream streamData;
-
-        streamData << "Salon Prasowy ";
-        letter = (rand() % 25) +65;
-        streamData << letter << name_end;
-
-
-    return streamData.str();
-}
 
 long long generate_pesel()
 {

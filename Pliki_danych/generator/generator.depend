@@ -11,13 +11,13 @@
 	<climits>
 	<ctime>
 
-1504367330 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\main.cpp
+1504439396 source:c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\main.cpp
 	<iostream>
 	"generate_lib.h"
 	<fstream>
 	<sstream>
 
-1504366642 c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\generate_lib.h
+1504439379 c:\users\wojciech\documents\github\hurtownia-danych\pliki_danych\generator\generate_lib.h
 	<cstdlib>
 	<sstream>
 	<climits>

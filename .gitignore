@@ -1,2 +1,6 @@
-pomysly\
-Pliki_danych\
+pomysly/
+Pliki_danych/
+*.csv
+*.csv
+*.depend
+*.o

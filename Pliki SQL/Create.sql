@@ -43,7 +43,7 @@ CONSTRAINT gabinet_przychodnia_fk FOREIGN KEY(id_przychodni) REFERENCES Przychod
 CREATE TABLE Ubezpieczenie (
 id_ubezpieczenia NUMBER CONSTRAINT Ubezpieczenie PRIMARY KEY,
 nr_ubezpieczenia NUMBER NOT NULL,
-oplacone VARCHAR2(1) NOT NULL,
+oplacone VARCHAR2(3) NOT NULL,
 wysokosc_skladki NUMBER NOT null
 );
 
@@ -94,7 +94,7 @@ id_gabinetu NUMBER NOT NULL,
 id_dnia NUMBER NOT NULL,
 nazwa_zabiegu VARCHAR2(300) NOT NULL,
 cena NUMBER NOT NULL,
-retundowany VARCHAR2(1) NOT NULL,
+retundowany VARCHAR2(3) NOT NULL,
 
 CONSTRAINT zabieg_pacjent_fk FOREIGN KEY(id_pacjenta) REFERENCES Pacjent(id_pacjenta),
 CONSTRAINT zabieg_dentysta_fk FOREIGN KEY(id_dentysty) REFERENCES Dentysta(id_dentysty),

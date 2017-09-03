@@ -22,3 +22,6 @@ Pliki_danych/generator/obj/Debug/main.o
 
 Pliki_danych/generator/generator.depend
 
+*.bad
+*.csv
+*.log

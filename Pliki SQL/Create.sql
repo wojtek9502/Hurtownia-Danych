@@ -24,7 +24,7 @@ data_zwolnienia DATE
 
 CREATE TABLE Przychodnia (
 id_przychodni NUMBER CONSTRAINT Przychodnia PRIMARY KEY,
-Adres VARCHAR2(300) NOT NULL,
+adres VARCHAR2(300) NOT NULL,
 miasto VARCHAR2(150) NOT NULL,
 telefon VARCHAR2(20) NOT NULL,
 pacjentow_miesiecznie NUMBER
@@ -94,12 +94,20 @@ id_gabinetu NUMBER NOT NULL,
 id_dnia NUMBER NOT NULL,
 nazwa_zabiegu VARCHAR2(300) NOT NULL,
 cena NUMBER NOT NULL,
-retundowany VARCHAR2(3) NOT NULL,
+refundowany VARCHAR2(3) NOT NULL,
 
 CONSTRAINT zabieg_pacjent_fk FOREIGN KEY(id_pacjenta) REFERENCES Pacjent(id_pacjenta),
 CONSTRAINT zabieg_dentysta_fk FOREIGN KEY(id_dentysty) REFERENCES Dentysta(id_dentysty),
 CONSTRAINT zabieg_gabinet_fk FOREIGN KEY(id_gabinetu) REFERENCES Gabinet(id_gabinetu),
 CONSTRAINT zabieg_dzien_fk FOREIGN KEY(id_dnia) REFERENCES Dzien(id_dnia)
-
 );
 
+SELECT * FROM zabieg;
+SELECT * FROM dzien;
+SELECT * FROM miesiac;
+SELECT * FROM rok;
+SELECT * FROM pacjent;
+SELECT * FROM ubezpieczenie;
+SELECT * FROM gabinet;
+SELECT * FROM przychodnia;
+SELECT * FROM dentysta;

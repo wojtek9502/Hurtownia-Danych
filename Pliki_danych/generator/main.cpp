@@ -300,6 +300,7 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
     int id=0;
+    int dent_count = 0;
     string lista_zabiegow[] = {"Przeglad uzebienia", "Usuniecie zeba jednokorzeniowego", "Usuniecie zeba mlecznego", "Zdjecie panoramiczne",
                                 "Wypelnienie zeba", "Proteza calkowita", "Wszczepienie implantu", "Piaskowanie", "Fluoryzacja", "Usuniecie zeba" };
 
@@ -309,32 +310,38 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
     {
         ///w kazdym dniu (365) po 10 pacjentow w kazdym gabinecie
         for(int i=0; i<l_dni; i++)
-            for(int k=0; k<l_gabinetow; k++)
-                for(int j=0; j<10; j++) ///10 pacjentow na kazdy gabinet
+            {
+                for(int k=0; k<l_gabinetow; k++)
                 {
-                    fplik << ++id << ",";
-                    fplik << (rand()%l_pacjentow)+1 << ","; ///id pacjenta
-                    fplik << l_dent_zw + rand() % (l_dent - l_dent_zw) << ","; ///id dentysty
-                    fplik << k+1 << ","; ///id gabinetu
-                    fplik << i+1 << ","; ///id dnia
+                  dent_count++;
+                    for(int j=0; j<10; j++) ///10 pacjentow na kazdy gabinet
+                    {
+                        fplik << ++id << ",";
+                        fplik << (rand()%l_pacjentow)+1 << ","; ///id pacjenta
+                        fplik << ((dent_count)%27)+1 << ","; ///id dentysty
+                        fplik << k+1 << ","; ///id gabinetu
+                        fplik << i+1 << ","; ///id dnia
 
 
-                    ///nazwa zabiegu
-                    int r = rand()%10;
-                    fplik << lista_zabiegow[r] << ",";
+                        ///nazwa zabiegu
+                        int r = rand()%10;
+                        fplik << lista_zabiegow[r] << ",";
 
-                    ///cena
-                    fplik << ( (rand()%3)+2 ) * 100 << ",";
+                        ///cena
+                        fplik << ( (rand()%3)+2 ) * 100 << ",";
 
-                    ///czy ubezpieczony
-                    if(rand()%10==0)
-                        fplik << "NIE";
-                    else
-                        fplik << "TAK";
-                    fplik << ",";
+                        ///czy ubezpieczony
+                        if(rand()%10==0)
+                            fplik << "NIE";
+                        else
+                            fplik << "TAK";
+                        fplik << ",";
 
-                    fplik << endl; ///koniec rekordu
+                        fplik << endl; ///koniec rekordu
+                    }
                 }
+            }
+
        cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
        fplik.close();
     }

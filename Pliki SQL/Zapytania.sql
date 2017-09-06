@@ -29,4 +29,27 @@ SELECT Nvl(To_Char(id_gabinetu),'SUMA GABINET') AS id_gabinetu,
        Nvl(To_Char(nazwa_zabiegu),'WSZYSTKICH ZABIEGOW') AS  nazwa_zabiegu,
        Sum(cena) AS suma_zysku
        FROM zabieg
-GROUP BY cube(id_gabinetu,nazwa_zabiegu)
+GROUP BY cube(id_gabinetu,nazwa_zabiegu);
+
+
+
+SELECT Count(id_dentysty) FROM dentysta;
+
+
+
+
+
+---ktory dentysta zarobil najwiecej
+SELECT id_dentysty,
+       SUM(cena) AS ilosc_zabiegow,
+       Rank() OVER (PARTITION BY NULL ORDER BY Sum(cena) desc) AS ranking
+FROM zabieg
+GROUP BY id_dentysty;
+
+
+---w ktorym gabinecie bylo najwiecej pacjentow
+SELECT id_gabinetu,
+       Count(id_pacjenta) AS ilosc_pacjentow,
+       Rank() OVER (PARTITION BY NULL ORDER BY Count(id_pacjenta)desc) AS ranking
+FROM zabieg
+GROUP BY id_gabinetu;

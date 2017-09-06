@@ -313,12 +313,12 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
             {
                 for(int k=0; k<l_gabinetow; k++)
                 {
-                  dent_count++;
+
                     for(int j=0; j<10; j++) ///10 pacjentow na kazdy gabinet
                     {
                         fplik << ++id << ",";
                         fplik << (rand()%l_pacjentow)+1 << ","; ///id pacjenta
-                        fplik << ((dent_count)%27)+1 << ","; ///id dentysty
+                        fplik << ((k)%27)+1 << ","; ///id dentysty
                         fplik << k+1 << ","; ///id gabinetu
                         fplik << i+1 << ","; ///id dnia
 
@@ -341,6 +341,8 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
                     }
                 }
             }
+
+            fplik << "15001,183,2,2,1,Usuniecie zeba,300,TAK,";
 
        cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
        fplik.close();

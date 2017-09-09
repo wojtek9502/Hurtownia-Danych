@@ -1,0 +1,39 @@
+<%@ page language="PL/SQL" %>
+<%@ plsql procedure="wyswietl_tabele" %>  
+<%@ plsql parameter="tabela" type="VARCHAR2" default="NULL" %>
+
+<%!
+	tabErr EXCEPTION;
+	status BOOLEAN;
+	id_max NUMBER;
+	tabEmptyErr EXCEPTION;
+%> 
+
+<html>
+	<head>
+		<title>Tabela  <% Htp.PRINT(tabela); %></title>
+	</head>
+	<body>
+	<a href="interfejs_start">Wstecz</a>
+	
+		<center>
+		Zawartosc tabeli: <% Htp.PRINT(tabela); %>
+		</br>
+		</br>
+		
+		<%	SELECT count(*) INTO id_max FROM cols WHERE table_name = upper(tabela); %>
+			
+			<% IF tabela IS NULL THEN RAISE tabErr; END IF; %>
+			<% IF id_max = 0 THEN  RAISE tabEmptyErr; END IF; %> 
+			
+			<% status := OWA_UTIL.TABLEPRINT(tabela, 'BORDER', OWA_UTIL.PRE_TABLE, '*', NULL, NULL, 0, NULL);  %>
+			
+			<% EXCEPTION
+						WHEN tabErr THEN %> Nie podano nazwy tabeli.
+						
+						<% WHEN tabEmptyErr THEN %> Taka tabela nie istnieje.	
+		</center>
+		
+	<a href="interfejs_start">Wstecz</a>
+	</body>
+</html>

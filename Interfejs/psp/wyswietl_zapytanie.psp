@@ -1,0 +1,24 @@
+<%@ page language="PL/SQL" %>
+<%@ plsql procedure="wyswietl_zapytanie" %>  
+
+<%!
+	tabErr EXCEPTION;
+	status BOOLEAN;
+	id_max NUMBER;
+	tabEmptyErr EXCEPTION;
+%> 
+
+<html>
+	<head>
+		<title>Zapytanie  </title>
+	</head>
+	<body>
+	<a href="interfejs_start">Wstecz</a>
+	
+		</br>
+		</br>
+		
+		
+	<a href="interfejs_start">Wstecz</a>
+	</body>
+</html>

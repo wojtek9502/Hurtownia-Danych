@@ -45,48 +45,66 @@
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Rollup2</td>
 			<td><center> <input type="submit"  name="zapytanie" value="rollup2"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Cube1</td>
 			<td><center> <input type="submit"  name="zapytanie" value="cube1"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Cube2</td>
 			<td><center> <input type="submit"  name="zapytanie" value="cube2"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Grupping sets</td>
 			<td><center> <input type="submit"  name="zapytanie" value="grupping_sets1"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Grupping sets</td>
 			<td><center> <input type="submit"  name="zapytanie" value="grupping_sets2"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Partition1</td>
 			<td><center> <input type="submit"  name="zapytanie" value="partition1"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Partition2</td>
 			<td><center> <input type="submit"  name="zapytanie" value="partition2"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Rank1</td>
 			<td><center> <input type="submit"  name="zapytanie" value="rank1"> </center></td>
+			</form>
 		  </tr>
 		  
 		  <tr>
+			<form action="wyswietl_zapytanie" type="get">
 			<td>Rank2</td>
 			<td><center> <input type="submit"  name="zapytanie" value="rank2"> </center></td>
+			</form>
 		  </tr>
 		  
 		  

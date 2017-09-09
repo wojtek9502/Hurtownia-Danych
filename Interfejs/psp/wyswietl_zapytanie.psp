@@ -1,5 +1,6 @@
 <%@ page language="PL/SQL" %>
-<%@ plsql procedure="wyswietl_zapytanie" %>  
+<%@ plsql procedure="wyswietl_zapytanie" %>
+<%@ plsql parameter="zapytanie" type="VARCHAR2" default="NULL" %>  
 
 <%!
 	tabErr EXCEPTION;
@@ -10,15 +11,72 @@
 
 <html>
 	<head>
-		<title>Zapytanie  </title>
+		<title>Zapytanie <% Htp.PRINT(zapytanie); %> </title>
 	</head>
 	<body>
-	<a href="interfejs_start">Wstecz</a>
-	
-		</br>
-		</br>
-		
-		
-	<a href="interfejs_start">Wstecz</a>
+		<a href="interfejs_start">Wstecz</a>
+			<center>
+				<b>Wynik zapytania  <% Htp.PRINT(zapytanie); %> </b>
+				<br>
+
+				<%-- START IF ZAPYTANIA ------------------------------------------------------------------------------------------%>
+				
+				 <% IF zapytanie='rollup1' THEN 
+				 htp.print('Pozwala okreslic liczbe pacjentow przyjetych w danym dniu, w danym gabinecie, a takze podsumowanie dla liczby pacjentow w danym dniu dla wszystkich dni, oraz ogol liczby przyjetych pacjentow.');
+						  status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_dnia, id_gabinetu, Count(id_pacjenta)', 'GROUP BY rollup (id_dnia, id_gabinetu)', NULL, 0, NULL);
+				 END IF; %>
+				
+				 <% IF zapytanie='rollup2' THEN 
+				 htp.print('Pozwala okreslic liczbe wykonanych przez danego dentyste, w danym dniu zabiegow, a takze podsumowanie ilosci zabiegow w danym dniu oraz licze wszystkich wykonanych zabiegow.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_dnia, id_dentysty, Count(id_zabiegu)', 'GROUP BY rollup (id_dnia, id_dentysty)', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='cube1' THEN 
+				  htp.print('Zapytanie dostarcza informacji na temat liczby wykonanych przez danego dentyste zabiegow danego typu, w danym gabinecie, a takze: liczbe zabiegow danego dentysty, liczbe zabiegow w danym gabinecie, liczbe zabiegow danego typu i liczbe zabiegow ogolem.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_gabinetu, id_dentysty, nazwa_zabiegu, count(id_zabiegu)', 'GROUP BY cube(id_gabinetu,id_dentysty,nazwa_zabiegu) ORDER BY id_gabinetu asc,id_dentysty asc,nazwa_zabiegu ASC ', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='cube2' THEN 
+				  htp.print('Okresla sume zysku dla kazdego gabinetu na kazdym z rodzajow zabiegow, sume zysku dla danego zabiegu oraz ogolna sume zysku');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_gabinetu, nazwa_zabiegu, sum(cena)','group by cube(id_gabinetu, nazwa_zabiegu)', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='grupping_sets1' THEN 
+				  htp.print('Zapytanie pokazuje sume zyskow w danym gabinecie danego dnia, sume ogolna zyskow w danym dniu, oraz zysk calkowity');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_gabinetu, id_dnia, sum(cena)','GROUP BY Grouping sets ((id_gabinetu,id_dnia), id_dnia ,()) ORDER BY id_gabinetu desc, id_dnia', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='grupping_sets2' THEN 
+				  htp.print('Zapytanie pokazuje liczbe zabiegow danego typu ktore wykonal dany lekarz w danym dniu,  sume zabiegow danego dnia i sume poszczegolnych zabiegow wykonanych przez danego dentyste.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_dentysty, id_dnia, nazwa_zabiegu, count(id_zabiegu)','GROUP BY Grouping sets ((id_dentysty,id_dnia,nazwa_zabiegu),(id_dentysty, nazwa_zabiegu), id_dnia ,()) ORDER BY id_dentysty desc , id_dnia', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='partition1' THEN 
+				  htp.print('Zapytanie z wykorzystaniem partycji, pozwala przesledzic zarobek danego gabinetu w kolejnych dniach.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, ' id_gabinetu, id_dentysty, id_pacjenta, id_dnia, Count(id_zabiegu) OVER(PARTITION BY id_gabinetu,id_dentysty ORDER BY id_dnia RANGE BETWEEN unbounded preceding  AND CURRENT ROW) AS liczba_wykonanych_zabiegow','ORDER BY id_gabinetu,id_dentysty', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='partition2' THEN 
+				 htp.print('Zapytanie partiotion pozwala przesledzic wykonane przez danego dentyste zabiegi z uwzglednieniem: gabinetu pacjenta i dnia. Zapytanie ma charakter informacyjny');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, ' id_gabinetu, id_dentysty, id_pacjenta, id_dnia, Count(id_zabiegu) OVER(PARTITION BY id_gabinetu,id_dentysty ORDER BY id_dnia RANGE BETWEEN unbounded preceding  AND CURRENT ROW) AS liczba_wykonanych_zabiegow','ORDER BY id_gabinetu,id_dentysty', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='rank1' THEN 
+				  htp.print('Ranking dentystow ktorzy wykazali najwiekszy zysk w wykonanych zabiegach.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'Rank() OVER (PARTITION BY NULL ORDER BY Sum(cena) desc) AS ranking', 'GROUP BY id_dentysty', NULL, 0, NULL);
+				 END IF; %>
+				 
+				  <% IF zapytanie='rank2' THEN 
+				  htp.print('Zapytanie wyswietla ranking gabinetow, w kolejnosci liczby obsluzonych pacjentow.');
+							status := OWA_UTIL.TABLEPRINT('Zabieg', 'BORDER', OWA_UTIL.PRE_TABLE, 'id_gabinetu, count(id_pacjenta), Rank() OVER (PARTITION BY NULL ORDER BY Sum(cena) desc)','GROUP BY id_gabinetu', NULL, 0, NULL);
+				 END IF; %>
+				
+
+				
+				<%-- KONIEC IF ZAPYTANIA ------------------------------------------------------------------------------------------%>
+			</center>	
+			
+			
+		<a href="interfejs_start">Wstecz</a>
 	</body>
 </html>

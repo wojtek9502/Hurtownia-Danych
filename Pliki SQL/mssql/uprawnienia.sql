@@ -1,0 +1,54 @@
+CREATE DATABASE NSPD;
+USE NSPD;
+GO;
+EXEC sp_configure 'CONTAINED DATABASE AUTHENTICATION', 1
+GO
+RECONFIGURE
+GO
+ALTER DATABASE NSPD SET CONTAINMENT = PARTIAL
+GO
+
+CREATE LOGIN NSPD
+    WITH PASSWORD = 'type_here_strong_password_bro';
+GO
+    CREATE USER NSPD FOR LOGIN NSPD;
+GO
+
+USE NSPD;
+
+CREATE TABLE Test (test INT);
+
+INSERT INTO Test VALUES (500);
+
+SELECT * FROM Test;
+
+DROP TABLE Test;
+
+USE NSPD;
+GRANT ALL TO NSPD;
+GO
+
+GRANT CONTROL TO NSPD;
+GRANT CREATE TABLE TO NSPD;
+GRANT TAKE OWNERSHIP TO NSPD;
+
+GRANT ADMINISTER BULK OPERATIONS TO NSPD;
+
+ALTER SERVER ROLE [bulkadmin] ADD MEMBER [NSPD];
+
+
+BULK INSERT Sprzedawca
+    FROM 'C:\Users\test\Downloads\Pliki-danych\sprzedawca.csv'
+    WITH
+    (
+    FIRSTROW = 0,
+    FIELDTERMINATOR = ',',  --CSV field delimiter
+    ROWTERMINATOR = '\n',   --Use to shift the control to next row
+    ERRORFILE = 'C:\CSVDATA\SchoolsErrorRows.csv',
+    TABLOCK
+    )
+
+use NSPD
+go
+exec sp_addrolemember 'db_owner', 'NSPD'
+go

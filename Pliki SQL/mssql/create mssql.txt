@@ -1,0 +1,98 @@
+CREATE TABLE Sprzedawca (
+id_sprzedawcy FLOAT CONSTRAINT sprzedawca_pk PRIMARY KEY,
+data_zatrudnienia DATETIME NOT NULL,
+data_zwolnienia DATETIME,
+pensja INT NOT NULL
+);
+
+
+CREATE TABLE Rok (
+id_roku FLOAT NOT NULL CONSTRAINT rok_pk PRIMARY KEY,
+rok FLOAT NOT NULL
+);
+
+
+
+CREATE TABLE Miesiac (
+id_miesiaca FLOAT NOT NULL CONSTRAINT miesiac_pk PRIMARY KEY,
+id_roku FLOAT NOT NULL,
+miesiac FLOAT NOT NULL,
+
+CONSTRAINT dzien_rok_fk FOREIGN KEY(id_roku) REFERENCES rok(id_roku)
+);
+
+
+CREATE TABLE Dzien (
+id_dnia FLOAT NOT NULL CONSTRAINT dzien_pk PRIMARY KEY,
+id_miesiaca FLOAT NOT NULL,
+dzien FLOAT,
+
+CONSTRAINT dzien_miesiac_fk FOREIGN KEY(id_miesiaca) REFERENCES miesiac(id_miesiaca)
+);
+
+
+CREATE TABLE Miasto (
+id_miasta FLOAT NOT NULL CONSTRAINT miasto_pk PRIMARY KEY,
+nazwa VARCHAR(50) NOT NULL,
+kraj VARCHAR(40) NOT NULL,
+liczba_mieszkancow INT
+);
+
+
+CREATE TABLE Salon(
+id_salonu FLOAT NOT NULL CONSTRAINT salon_pk PRIMARY KEY,
+id_miasta FLOAT NOT NULL,
+nazwa VARCHAR(60) NOT NULL,
+adres VARCHAR(30) NOT NULL,
+powierzchnia SMALLINT NOT NULL,
+obrot_miesieczny INT NOT NULL,
+
+CONSTRAINT salon_miasto_fk FOREIGN KEY(id_miasta) REFERENCES miasto(id_miasta)
+);
+
+
+CREATE TABLE Tematyka (
+id_tematyki FLOAT NOT NULL CONSTRAINT tematyka_pk PRIMARY KEY,
+nazwa VARCHAR(50) NOT NULL,
+opis varchar(200)
+);
+
+CREATE TABLE Pismo (
+id_pisma FLOAT NOT NULL CONSTRAINT pismo_pk PRIMARY KEY,
+id_tematyki float NOT NULL,
+okres_wydawania VARCHAR(30) NOT NULL,  --np tygodnik itp
+nazwa VARCHAR(40) NOT null,
+naklad INT NOT NULL,
+cena SMALLINT NOT NULL,
+
+CONSTRAINT pismo_tematyka_fk FOREIGN KEY(id_tematyki) REFERENCES tematyka(id_tematyki)
+);
+
+CREATE TABLE Platnosci (
+id_platnosci FLOAT NOT NULL CONSTRAINT platnosci_pk PRIMARY KEY,
+nazwa VARCHAR(50)
+);
+
+CREATE TABLE Paragony (
+id_paragonu FLOAT NOT NULL CONSTRAINT paragon_pk PRIMARY KEY,
+id_platnosci FLOAT NOT NULL,
+do_zaplaty FLOAT,
+
+CONSTRAINT paragon_PLATNOSCI_fk FOREIGN KEY(id_platnosci) REFERENCES Platnosci(id_platnosci) 
+);
+
+CREATE TABLE Sprzedaz (
+id_sprzedazy FLOAT NOT NULL CONSTRAINT sprzedaz_pk PRIMARY KEY,
+id_pisma FLOAT NOT NULL,
+id_salonu FLOAT NOT NULL,
+id_dnia FLOAT NOT NULL,
+id_sprzedawcy FLOAT NOT NULL,
+id_paragonu FLOAT NOT NULL,
+suma_zysku FLOAT NOT NULL,
+
+CONSTRAINT sprzedaz_pismo_fk FOREIGN KEY(id_pisma) REFERENCES Pismo(id_pisma),
+CONSTRAINT sprzedaz_salon_fk FOREIGN KEY(id_salonu) REFERENCES Salon(id_salonu),
+CONSTRAINT sprzedaz_dzien_fk FOREIGN KEY(id_dnia) REFERENCES Dzien(id_dnia),
+CONSTRAINT sprzedaz_sprzedawca_fk FOREIGN KEY(id_sprzedawcy) REFERENCES Sprzedawca(id_sprzedawcy),
+CONSTRAINT sprzedaz_paragon_fk FOREIGN KEY(id_paragonu) REFERENCES Paragony(id_paragonu)
+);

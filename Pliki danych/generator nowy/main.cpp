@@ -9,7 +9,7 @@ using namespace std;
 
 void generuj_dentystow(int p_ile_dent, int p_ile_zw_dent)
 {
-    string sciezka = "..\\dentysta.csv";
+    string sciezka = "dentysta.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
     if(fplik.good()==true)
@@ -48,7 +48,7 @@ void generuj_dentystow(int p_ile_dent, int p_ile_zw_dent)
 
 void generuj_przychodnie(int p_ile_przychodni)
 {
-    string sciezka = "..\\przychodnia.csv";
+    string sciezka = "przychodnia.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
     if(fplik.good()==true)
@@ -59,7 +59,7 @@ void generuj_przychodnie(int p_ile_przychodni)
            fplik << generate_address("ska") << ",";
            fplik << "Kielce" << ",";
            fplik << generate_phone_number() << ",";
-           fplik << ( (rand()%3)+2 ) * 15 << ","; ///pacjentów miesiecznie
+           fplik << ( (rand()%3)+2 ) * 15 << ","; ///pacjentÃ³w miesiecznie
            fplik << endl; ///koniec rekordu
        }
        cout << "Dane wygenerowane do pliku " << sciezka.c_str() << endl;
@@ -77,7 +77,7 @@ void generuj_przychodnie(int p_ile_przychodni)
 
 int generuj_gabinety(int p_ile_przychodni)
 {
-    string sciezka = "..\\gabinet.csv";
+    string sciezka = "gabinet.csv";
     fstream fplik;
     int ile_gabinetow_w_kazdej = 5;             ///ile gabinetow w kazdej przychodni
     int gabinety_counter=0;
@@ -115,7 +115,7 @@ int generuj_gabinety(int p_ile_przychodni)
 
 void generuj_ubezpieczenia(int p_ile_ubezpieczen)
 {
-    string sciezka = "..\\ubezpieczenie.csv";
+    string sciezka = "ubezpieczenie.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
 
@@ -153,7 +153,7 @@ void generuj_ubezpieczenia(int p_ile_ubezpieczen)
 
 void generuj_pacjentow(int p_ile_pacjentow)
 {
-    string sciezka = "..\\pacjent.csv";
+    string sciezka = "pacjent.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
 
@@ -186,7 +186,7 @@ void generuj_pacjentow(int p_ile_pacjentow)
 
 int generuj_lata(int rok_poczatkowy, int ile_lat)
 {
-    string sciezka = "..\\rok.csv";
+    string sciezka = "rok.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
     if(fplik.good()==true)
@@ -215,7 +215,7 @@ int generuj_lata(int rok_poczatkowy, int ile_lat)
 
 int generuj_miesiace(int ile_lat)
 {
-    string sciezka = "..\\miesiac.csv";
+    string sciezka = "miesiac.csv";
     fstream fplik;
     int id_roku=1;
     int nr_miesiaca=1;
@@ -256,7 +256,7 @@ int generuj_miesiace(int ile_lat)
 
 unsigned int generuj_dni(int ile_miesiecy)
 {
-    string sciezka = "..\\dzien.csv";
+    string sciezka = "dzien.csv";
     fstream fplik;
     int id_miesiaca=1;
     int nr_dnia=1;
@@ -296,13 +296,14 @@ unsigned int generuj_dni(int ile_miesiecy)
 
 void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow, int l_dni)
 {
-    string sciezka = "..\\zabieg.csv";
+    string sciezka = "zabieg.csv";
     fstream fplik;
     fplik.open(sciezka.c_str(),ios::in | ios::out | ios::trunc);
     int id=0;
     int dent_count = 0;
-    string lista_zabiegow[] = {"Przeglad uzebienia", "Usuniecie zeba jednokorzeniowego", "Usuniecie zeba mlecznego", "Zdjecie panoramiczne",
-                                "Wypelnienie zeba", "Proteza calkowita", "Wszczepienie implantu", "Piaskowanie", "Fluoryzacja", "Usuniecie zeba" };
+    string lista_zabiegow[] = {"Przeglad uzebienia", "Usuniecie zeba jednokorzeniowego", "Usuniecie zeba mlecznego", "Zdjecie uzebienia",
+                                "Wypelnienie zeba", "Proteza calkowita", "Wszczepienie implantu", "Piaskowanie", "Fluoryzacja", "Usuniecie zeba trzonowego" };
+	float cena_za_zabieg[] = {50.0, 100.0, 70.0, 30.0, 40.0, 300.0, 250.0, 90.0, 70.0, 140.0};
 
 
 
@@ -314,7 +315,7 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
                 for(int k=0; k<l_gabinetow; k++)
                 {
 
-                    for(int j=0; j<10; j++) ///10 pacjentow na kazdy gabinet
+                    for(int j=0; j<3; j++) ///2 pacjentow na kazdy gabinet
                     {
                         fplik << ++id << ",";
                         fplik << (rand()%l_pacjentow)+1 << ","; ///id pacjenta
@@ -323,12 +324,12 @@ void generuj_zabiegi(int l_pacjentow, int l_dent, int l_dent_zw, int l_gabinetow
                         fplik << i+1 << ","; ///id dnia
 
 
-                        ///nazwa zabiegu
+                        ///nazwa zabiegu i cena
                         int r = rand()%10;
                         fplik << lista_zabiegow[r] << ",";
 
                         ///cena
-                        fplik << ( (rand()%3)+2 ) * 100 << ",";
+                        fplik <<cena_za_zabieg[r] << ",";
 
                         ///czy ubezpieczony
                         if(rand()%10==0)
@@ -380,7 +381,7 @@ int main()
     int l_lat = generuj_lata(2012,1);
     int l_miesiecy = generuj_miesiace(l_lat);
     int l_dni = generuj_dni(l_miesiecy);
-    generuj_zabiegi(l_pacjentow,l_dent,l_dent_zw,l_gabinetow,30);
+    generuj_zabiegi(l_pacjentow,l_dent,l_dent_zw,l_gabinetow,l_dni);
 
     return 0;
 }

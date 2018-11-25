@@ -1,10 +1,11 @@
-1,Ul. Lska 16,Kielce,644632946,30,
-2,Ul. Oska 21,Kielce,249253892,60,
-3,Ul. Gska 68,Kielce,798075579,60,
-4,Ul. Lska 84,Kielce,690831034,45,
-5,Ul. Jska 71,Kielce,742862932,30,
-6,Ul. Fska 47,Kielce,442291792,30,
-7,Ul. Rska 75,Kielce,828227872,60,
-8,Ul. Hska 78,Kielce,274817994,45,
-9,Ul. Xska 84,Kielce,145522923,45,
-10,Ul. Aska 95,Kielce,290139954,60,
+id_przychodni,adres,miasto,telefon,pacjentow_miesiecznie
+1,Ul. Eska 72,Kielce,317179728,56
+2,Ul. Xska 1,Kielce,821561728,56
+3,Ul. Cska 17,Kielce,946945656,56
+4,Ul. Wska 76,Kielce,887055928,56
+5,Ul. Tska 98,Kielce,298707274,56
+6,Ul. Iska 46,Kielce,943249354,56
+7,Ul. Jska 93,Kielce,866207568,56
+8,Ul. Fska 84,Kielce,731083608,56
+9,Ul. Rska 63,Kielce,245018602,56
+10,Ul. Tska 25,Kielce,346233801,56
